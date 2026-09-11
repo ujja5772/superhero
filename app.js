@@ -73,12 +73,25 @@ function pickCard(canSentences, usedIds){
   const text = canSentences.join(' ').toLowerCase();
   let pool = CARDS.filter(c=>!usedIds.includes(c.id));
   if(pool.length===0){ usedIds=[]; pool=CARDS.slice(); }
-  const weighted=[];
-  pool.forEach(c=>{
+  const scored = pool.map(c=>{
     let score=0;
     c.tags.forEach(t=>{ if(new RegExp('\\b'+t+'\\b').test(text)) score++; });
-    const weight = score>0 ? score*3+1 : 1;
-    for(let i=0;i<weight;i++) weighted.push(c);
+    return {c,score};
+  });
+  const matched = scored.filter(x=>x.score>0);
+  const unmatched = scored.filter(x=>x.score===0);
+  // 쓴 문장과 태그가 맞는 카드가 있으면 85% 확률로 그중에서 뽑고(점수가 높을수록 더 자주),
+  // 15% 확률(또는 일치하는 카드가 없을 때)로만 깜짝 보너스 카드가 나오게 함
+  let candidates;
+  if(matched.length>0 && (unmatched.length===0 || Math.random()<0.85)){
+    candidates = matched;
+  }else{
+    candidates = unmatched.length>0 ? unmatched : scored;
+  }
+  const weighted=[];
+  candidates.forEach(x=>{
+    const weight = x.score>0 ? x.score*4+1 : 1;
+    for(let i=0;i<weight;i++) weighted.push(x.c);
   });
   const chosen = weighted[Math.floor(Math.random()*weighted.length)];
   return {chosen, newUsed: usedIds.concat([chosen.id])};
@@ -114,7 +127,9 @@ function renderEntry(){
   document.getElementById('startBtn').onclick=()=>{
     const cls=document.getElementById('in_cls').value, num=document.getElementById('in_num').value.trim(), name=document.getElementById('in_name').value.trim();
     if(!cls||!num||!name){ showMessage('반, 번호, 이름을 모두 입력해주세요!','warn'); return; }
-    state.student={cls,num,name}; state.screen='create'; render();
+    state.student={cls,num,name};
+    state.heroName=''; state.canList=['','','']; state.cantList=['','','']; state.chosenCard=null; state.activeFieldRef=null; state.freeFieldKind=undefined;
+    state.screen='create'; render();
   };
 }
 
@@ -223,7 +238,7 @@ function renderCreate(){
   document.getElementById('searchInput').oninput = e=>renderSearch(e.target.value);
 
   document.getElementById('in_heroname').oninput=e=>{ state.heroName=e.target.value; };
-  document.getElementById('backBtn').onclick=()=>{ state.screen='entry'; render(); };
+  document.getElementById('backBtn').onclick=()=>{ resetToEntry(); };
   document.getElementById('submitBtn').onclick=onSubmit;
 }
 
