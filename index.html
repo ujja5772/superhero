@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>나만의 히어로 만들기</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Nunito:wght@400;600;700;800&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{
   --sky:#EAF6FF;
@@ -42,8 +42,9 @@ button{font-family:'Nunito',sans-serif; cursor:pointer;}
 label.field-label{display:block;font-weight:800;font-size:14px;margin:14px 0 6px;}
 input[type=text], input[type=password], select, textarea{
   width:100%;padding:12px 14px;border:3px solid var(--ink);border-radius:14px;
-  font-size:16px;font-family:'Nunito';font-weight:600;background:#FFFDF5;
+  font-size:18px;font-family:'Nunito';font-weight:700;background:#FFFDF5;
 }
+.abilityInput{ font-family:'Poppins',sans-serif; font-size:18px; font-weight:600; letter-spacing:0.2px; }
 input:focus, select:focus, textarea:focus{outline:3px solid var(--grape);outline-offset:1px;}
 input.active-field{outline:3px solid var(--teal);}
 .row2{display:flex;gap:14px;}
@@ -55,10 +56,10 @@ input.active-field{outline:3px solid var(--teal);}
 .big-btn.teal{background:var(--teal);color:#fff;}
 .ability-row{display:flex;gap:8px;align-items:center;margin-bottom:10px;}
 .mini-label{font-weight:800;font-size:12px;color:#777;margin:8px 0 6px;}
-.ability-prefix{font-weight:800;font-size:15px;background:var(--ink);color:#fff;padding:10px 10px;border-radius:12px;white-space:nowrap;}
+.ability-prefix{font-weight:800;font-size:16px;background:var(--ink);color:#fff;padding:10px 12px;border-radius:12px;white-space:nowrap;font-family:'Poppins',sans-serif;}
 .wordbank{display:grid;grid-template-columns:repeat(auto-fill,minmax(90px,1fr));gap:8px;margin-top:8px;}
-.wordchip{border:3px solid var(--ink);background:#F1FBFF;border-radius:14px;padding:9px 6px;font-weight:800;font-size:13px;text-align:center;}
-.wordchip small{display:block;font-weight:600;font-size:11px;color:#666;margin-top:2px;}
+.wordchip{border:3px solid var(--ink);background:#F1FBFF;border-radius:14px;padding:10px 6px;font-weight:700;font-size:16px;text-align:center;font-family:'Poppins',sans-serif;}
+.wordchip small{display:block;font-weight:600;font-size:12px;color:#666;margin-top:3px;font-family:'Nunito';}
 .wordchip:active{background:var(--sun);}
 .section-tag{display:inline-block;font-weight:800;font-size:13px;background:var(--teal);color:#fff;padding:4px 12px;border-radius:999px;margin-bottom:10px;}
 .section-tag.pink{background:var(--coral);}
@@ -68,8 +69,8 @@ input.active-field{outline:3px solid var(--teal);}
 .search-box{position:relative;}
 .search-results{max-height:260px;overflow-y:auto;margin-top:10px;display:flex;flex-direction:column;gap:6px;}
 .search-result{display:flex;align-items:center;justify-content:space-between;gap:8px;border:2px solid var(--ink);border-radius:12px;padding:8px 10px;background:#F1FBFF;}
-.search-result .sr-text{font-weight:800;font-size:14px;}
-.search-result .sr-text small{display:block;font-weight:600;color:#666;font-size:12px;}
+.search-result .sr-text{font-weight:700;font-size:17px;font-family:'Poppins',sans-serif;}
+.search-result .sr-text small{display:block;font-weight:600;color:#666;font-size:12px;font-family:'Nunito';}
 .sr-actions{display:flex;gap:4px;}
 .sr-btn{border:2px solid var(--ink);background:#fff;border-radius:10px;padding:6px 8px;font-size:13px;font-weight:800;}
 .sr-btn.add{background:var(--sun);}
@@ -86,8 +87,8 @@ input.active-field{outline:3px solid var(--teal);}
 .post-card{background:#fff;border:4px solid var(--ink);border-radius:22px;padding:16px;box-shadow:6px 6px 0 var(--ink);}
 .post-card img{width:100%;max-width:150px;border-radius:14px;border:3px solid var(--ink);display:block;margin:0 auto 10px;}
 .post-meta{font-weight:700;font-size:12px;color:#999;margin-bottom:2px;}
-.post-greeting{font-family:'Baloo 2';font-weight:800;font-size:18px;margin:0 0 8px;color:var(--grape);}
-.post-sentences{font-size:14px;font-weight:600;line-height:1.5;margin-bottom:8px;}
+.post-greeting{font-family:'Poppins',sans-serif;font-weight:800;font-size:21px;margin:0 0 10px;color:var(--grape);}
+.post-sentences{font-size:17px;font-weight:600;line-height:1.65;margin-bottom:8px;font-family:'Poppins',sans-serif;}
 .post-sentences .can{color:#0E8F7A;}
 .post-sentences .cant{color:#D6482F;}
 .post-actions{display:flex;gap:8px;align-items:center;margin-top:6px;flex-wrap:wrap;}
@@ -104,6 +105,7 @@ input.active-field{outline:3px solid var(--teal);}
 .class-tab.active{background:var(--grape);color:#fff;}
 .empty-note{text-align:center;color:#777;font-weight:700;padding:30px 10px;grid-column:1/-1;}
 .footer-note{text-align:center;font-size:12px;color:#888;margin-top:14px;font-weight:600;}
+.hidden{display:none !important;}
 .toast{position:fixed;top:18px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:14px 22px;border-radius:16px;font-weight:800;font-size:15px;box-shadow:4px 4px 0 rgba(0,0,0,.25);z-index:9999;max-width:90%;text-align:center;animation:toastin .2s ease;}
 .toast.warn{background:var(--coral);}
 .toast.ok{background:var(--teal);}
@@ -118,7 +120,6 @@ input.active-field{outline:3px solid var(--teal);}
   </div>
   <div id="app"></div>
 </div>
-
 
   <script src="config.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
