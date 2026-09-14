@@ -6,7 +6,7 @@ const WORDS = [
   {en:'ski', ko:'스키를 타다'},{en:'slide', ko:'미끄러지다'},{en:'eat', ko:'먹다'},{en:'dance', ko:'춤추다'},
   {en:'kick', ko:'차다'},{en:'catch', ko:'잡다'},
 ];
-const PHRASES = [{"en": "jump", "ko": "점프하다"}, {"en": "run", "ko": "달리다"}, {"en": "climb", "ko": "오르다"}, {"en": "fly", "ko": "날다"}, {"en": "swim", "ko": "수영하다"}, {"en": "skate", "ko": "스케이트를 타다"}, {"en": "ski", "ko": "스키를 타다"}, {"en": "slide", "ko": "미끄러지다"}, {"en": "eat", "ko": "먹다"}, {"en": "dance", "ko": "춤추다"}, {"en": "kick", "ko": "차다"}, {"en": "catch", "ko": "잡다"}, {"en": "turn invisible", "ko": "투명인간이 되다"}, {"en": "stop time", "ko": "시간을 멈추다"}, {"en": "read minds", "ko": "마음을 읽다"}, {"en": "teleport", "ko": "순간이동하다"}, {"en": "shoot laser eyes", "ko": "레이저 눈을 쏘다"}, {"en": "breathe fire", "ko": "불을 뿜다"}, {"en": "control the weather", "ko": "날씨를 조종하다"}, {"en": "have super strength", "ko": "초인적인 힘을 가지다"}, {"en": "lift a car", "ko": "자동차를 들다"}, {"en": "run super fast", "ko": "엄청 빠르게 달리다"}, {"en": "fly to the moon", "ko": "달까지 날아가다"}, {"en": "make a shield", "ko": "방패를 만들다"}, {"en": "shoot energy blasts", "ko": "에너지를 쏘다"}, {"en": "freeze things", "ko": "얼려버리다"}, {"en": "talk to animals", "ko": "동물과 이야기하다"}, {"en": "become giant", "ko": "거인이 되다"}, {"en": "become tiny", "ko": "아주 작아지다"}, {"en": "see through walls", "ko": "벽을 투시하다"}, {"en": "heal people", "ko": "사람들을 치료하다"}, {"en": "control plants", "ko": "식물을 조종하다"}, {"en": "make electricity", "ko": "전기를 만들다"}, {"en": "walk on water", "ko": "물 위를 걷다"}, {"en": "breathe underwater", "ko": "물속에서 숨을 쉬다"}, {"en": "turn into an animal", "ko": "동물로 변신하다"}, {"en": "see the future", "ko": "미래를 보다"}, {"en": "control minds", "ko": "마음을 조종하다"}, {"en": "control fire", "ko": "불을 조종하다"}, {"en": "control water", "ko": "물을 조종하다"}, {"en": "fly through space", "ko": "우주를 날다"}, {"en": "hear far away", "ko": "아주 멀리서도 듣다"}, {"en": "move things with my mind", "ko": "마음으로 물건을 움직이다"}];
+const PHRASES = [{"en": "jump", "ko": "점프하다"}, {"en": "run", "ko": "달리다"}, {"en": "climb", "ko": "오르다"}, {"en": "fly", "ko": "날다"}, {"en": "swim", "ko": "수영하다"}, {"en": "skate", "ko": "스케이트를 타다"}, {"en": "ski", "ko": "스키를 타다"}, {"en": "slide", "ko": "미끄러지다"}, {"en": "eat", "ko": "먹다"}, {"en": "dance", "ko": "춤추다"}, {"en": "kick", "ko": "차다"}, {"en": "catch", "ko": "잡다"}, {"en": "turn invisible", "ko": "투명인간이 되다"}, {"en": "stop time", "ko": "시간을 멈추다"}, {"en": "read minds", "ko": "마음을 읽다"}, {"en": "teleport", "ko": "순간이동하다"}, {"en": "shoot laser eyes", "ko": "레이저 눈을 쏘다"}, {"en": "breathe fire", "ko": "불을 뿜다"}, {"en": "control the weather", "ko": "날씨를 조종하다"}, {"en": "have super strength", "ko": "초인적인 힘을 가지다"}, {"en": "lift a car", "ko": "자동차를 들다"}, {"en": "run super fast", "ko": "엄청 빠르게 달리다"}, {"en": "fly to the moon", "ko": "달까지 날아가다"}, {"en": "make a shield", "ko": "방패를 만들다"}, {"en": "shoot energy blasts", "ko": "에너지를 쏘다"}, {"en": "freeze things", "ko": "얼려버리다"}, {"en": "talk to animals", "ko": "동물과 이야기하다"}, {"en": "become giant", "ko": "거인이 되다"}, {"en": "become tiny", "ko": "아주 작아지다"}, {"en": "see through walls", "ko": "벽을 투시하다"}, {"en": "heal people", "ko": "사람들을 치료하다"}, {"en": "control plants", "ko": "식물을 조종하다"}, {"en": "make electricity", "ko": "전기를 만들다"}, {"en": "walk on water", "ko": "물 위를 걷다"}, {"en": "breathe underwater", "ko": "물속에서 숨을 쉬다"}, {"en": "turn into an animal", "ko": "동물로 변신하다"}, {"en": "see the future", "ko": "미래를 보다"}, {"en": "control minds", "ko": "마음을 조종하다"}, {"en": "control fire", "ko": "불을 조종하다"}, {"en": "control water", "ko": "물을 조종하다"}, {"en": "fly through space", "ko": "우주를 날다"}, {"en": "hear far away", "ko": "아주 멀리서도 듣다"}, {"en": "move things with my mind", "ko": "마음으로 물건을 움직이다"}, {"en": "fly through walls", "ko": "벽을 통과해서 날아가다"}, {"en": "run at super speed", "ko": "초고속으로 달리다"}, {"en": "shapeshift", "ko": "모습을 바꾸다"}, {"en": "turn to stone", "ko": "돌로 변하다"}, {"en": "grow wings", "ko": "날개가 자라다"}, {"en": "disappear", "ko": "사라지다"}, {"en": "multiply myself", "ko": "나를 여러 명으로 만들다"}, {"en": "control the wind", "ko": "바람을 조종하다"}, {"en": "control gravity", "ko": "중력을 조종하다"}, {"en": "create a portal", "ko": "포탈을 만들다"}, {"en": "summon animals", "ko": "동물을 소환하다"}, {"en": "glow in the dark", "ko": "어둠 속에서 빛나다"}, {"en": "throw fireballs", "ko": "불덩이를 던지다"}, {"en": "shoot ice", "ko": "얼음을 쏘다"}, {"en": "control ice", "ko": "얼음을 조종하다"}, {"en": "control sound", "ko": "소리를 조종하다"}, {"en": "have x-ray vision", "ko": "투시 능력을 가지다"}, {"en": "hear super well", "ko": "아주 잘 듣다"}, {"en": "smell super well", "ko": "냄새를 아주 잘 맡다"}, {"en": "see in the dark", "ko": "어둠 속에서도 보다"}, {"en": "control magnets", "ko": "자석을 조종하다"}, {"en": "read thoughts", "ko": "텔레파시로 생각을 읽다"}, {"en": "control robots", "ko": "로봇을 조종하다"}, {"en": "copy other powers", "ko": "다른 능력을 따라하다"}, {"en": "transform into a dragon", "ko": "용으로 변신하다"}, {"en": "ride lightning", "ko": "번개를 타다"}, {"en": "control lava", "ko": "용암을 조종하다"}, {"en": "phase through walls", "ko": "벽을 통과하다"}, {"en": "shrink myself", "ko": "몸을 작게 만들다"}, {"en": "grow giant size", "ko": "몸을 거대하게 만들다"}, {"en": "duplicate myself", "ko": "나를 복제하다"}, {"en": "control luck", "ko": "운을 조종하다"}, {"en": "astral project", "ko": "유체이탈하다"}, {"en": "jump super high", "ko": "아주 높이 점프하다"}, {"en": "bounce super high", "ko": "아주 높이 튀어오르다"}, {"en": "absorb other powers", "ko": "다른 힘을 흡수하다"}, {"en": "control emotions", "ko": "감정을 조종하다"}, {"en": "scream super loud", "ko": "아주 크게 소리치다"}, {"en": "camouflage myself", "ko": "몸을 숨기다"}, {"en": "keep perfect balance", "ko": "균형을 아주 잘 잡다"}, {"en": "use echolocation", "ko": "소리로 위치를 찾다"}, {"en": "heal myself fast", "ko": "스스로 빠르게 치료하다"}, {"en": "control darkness", "ko": "어둠을 조종하다"}, {"en": "control light", "ko": "빛을 조종하다"}, {"en": "talk to fish", "ko": "물고기와 이야기하다"}, {"en": "control dreams", "ko": "꿈을 조종하다"}, {"en": "summon fire", "ko": "불을 소환하다"}, {"en": "freeze time", "ko": "시간을 얼리다"}, {"en": "control bugs", "ko": "벌레를 조종하다"}, {"en": "walk through fire", "ko": "불 속을 걸어가다"}, {"en": "never get tired", "ko": "절대 지치지 않다"}, {"en": "have super balance", "ko": "아주 잘 균형을 잡다"}, {"en": "breathe fire and ice", "ko": "불과 얼음을 뿜다"}, {"en": "control the moon", "ko": "달을 조종하다"}, {"en": "control the stars", "ko": "별을 조종하다"}, {"en": "turn into water", "ko": "물로 변하다"}, {"en": "turn into shadow", "ko": "그림자로 변하다"}, {"en": "create clones", "ko": "분신을 만들다"}, {"en": "open portals in time", "ko": "시간 이동 포탈을 열다"}];
 const CLASSES = ['1반','2반','3반','4반'];
 const TEACHER_PW = 'hero2026';
 
@@ -63,6 +63,10 @@ async function storeDelete(key){
   }catch(e){ console.error(e); return null; }
 }
 function postKey(cls,num,name){ return `hero_post_${sanitize(cls)}_${sanitize(num)}_${sanitize(name)}`; }
+function studentKey(cls,num,name){ return `hero_student_${sanitize(cls)}_${sanitize(num)}_${sanitize(name)}`; }
+async function getStudentAccount(cls,num,name){ return await storeGet(studentKey(cls,num,name)); }
+async function saveStudentPassword(cls,num,name,pw){ return await storeSet(studentKey(cls,num,name), {password:pw}); }
+async function resetStudentPassword(cls,num,name){ return await storeDelete(studentKey(cls,num,name)); }
 function usedKey(cls){ return `hero_used_${sanitize(cls)}`; }
 function escapeHtml(s){ return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 function greetingFor(name){
@@ -111,7 +115,7 @@ function renderEntry(){
   <div class="card-panel" style="max-width:640px;margin:0 auto;">
     <div class="section-tag">시작하기</div>
     <h1 class="hero-title">나만의 히어로를<br>만들 준비 됐나요?</h1>
-    <p class="hero-sub">반, 번호, 이름을 입력하고 히어로 만들기를 시작해요!</p>
+    <p class="hero-sub">반, 번호, 이름을 입력하고 들어가요!</p>
     <div class="row2">
       <div><label class="field-label">반</label>
         <select id="in_cls"><option value="">선택</option>${CLASSES.map(c=>`<option value="${c}">${c}</option>`).join('')}</select>
@@ -120,12 +124,27 @@ function renderEntry(){
     </div>
     <label class="field-label">이름</label>
     <input type="text" id="in_name" placeholder="이름을 입력하세요">
-    <button class="big-btn" id="startBtn">다음으로 &#10132;</button>
+    <label class="field-label">비밀번호 (숫자 4자리)</label>
+    <input type="password" id="in_pw" inputmode="numeric" maxlength="4" placeholder="예: 1234">
+    <p style="font-size:12px;color:#888;font-weight:700;margin-top:4px;">&#128161; 처음 들어올 때 정한 비밀번호가 앞으로 내 비밀번호가 돼요. 잊어버리면 선생님께 초기화를 요청하세요!</p>
+    <button class="big-btn" id="startBtn">들어가기 &#10132;</button>
   </div>
   <p class="footer-note">나만의 히어로 만들기</p>`;
-  document.getElementById('startBtn').onclick=()=>{
+  document.getElementById('startBtn').onclick=async ()=>{
     const cls=document.getElementById('in_cls').value, num=document.getElementById('in_num').value.trim(), name=document.getElementById('in_name').value.trim();
-    if(!cls||!num||!name){ showMessage('반, 번호, 이름을 모두 입력해주세요!','warn'); return; }
+    const pw=document.getElementById('in_pw').value.trim();
+    if(!cls||!num||!name||!pw){ showMessage('반, 번호, 이름, 비밀번호를 모두 입력해주세요!','warn'); return; }
+    if(!/^\d{4}$/.test(pw)){ showMessage('비밀번호는 숫자 4자리로 입력해주세요!','warn'); return; }
+    const startBtn = document.getElementById('startBtn');
+    startBtn.disabled = true;
+    const account = await getStudentAccount(cls,num,name);
+    if(!account){
+      await saveStudentPassword(cls,num,name,pw);
+    }else if(account.password !== pw){
+      showMessage('비밀번호가 틀렸어요. 다시 확인해보세요!','warn');
+      startBtn.disabled = false;
+      return;
+    }
     state.student={cls,num,name};
     state.heroName=''; state.canList=['','','']; state.cantList=['','','']; state.chosenCard=null; state.activeFieldRef=null; state.freeFieldKind=undefined;
     state.screen='create'; render();
@@ -410,7 +429,8 @@ function renderPostHTML(p, teacherMode){
         <input type="text" class="editNumInput" value="${escapeHtml(p.num)}" style="width:54px;padding:6px 8px;font-size:12px;" placeholder="번호">
         <input type="text" class="editNameInput" value="${escapeHtml(p.name)}" style="flex:1;padding:6px 8px;font-size:12px;" placeholder="이름">
         <button class="iconbtn editSaveBtn" style="font-size:12px;">&#9997;&#65039; 수정</button>
-      </div>` : ''}
+      </div>
+      <button class="iconbtn resetPwBtn" style="margin-bottom:8px;">&#128273; 비밀번호 초기화</button>` : ''}
     <div class="post-greeting">${greet}, my name is ${escapeHtml(p.heroName)}.</div>
     <div class="post-sentences">
       ${p.canList.map(s=>`<div class="can">&#9989; I can ${escapeHtml(s)}.</div>`).join('')}
@@ -483,6 +503,13 @@ function attachPostHandlers(wrap, posts, teacherMode){
         if(newKey !== key){ await storeDelete(key); }
         showMessage('번호/이름을 수정했어요!','ok');
         renderTeacherDash();
+      };
+    }
+    const resetPwBtn = el.querySelector('.resetPwBtn');
+    if(resetPwBtn){
+      resetPwBtn.onclick = async ()=>{
+        await resetStudentPassword(post.cls, post.num, post.name);
+        showMessage(`${post.name} 학생의 비밀번호를 초기화했어요! 다음에 입장할 때 새로 정한 비밀번호가 등록돼요.`, 'ok');
       };
     }
     const fbSaveBtn = el.querySelector('.fbSaveBtn');
@@ -576,6 +603,15 @@ async function renderTeacherDash(){
 }
 
 document.getElementById('teacherNavBtn').onclick=()=>{ state.screen='teacherLogin'; render(); };
+document.getElementById('boardNavBtn').onclick=()=>{
+  if(state.student && state.student.cls){
+    state.boardClass = state.student.cls;
+    state.screen='board'; render();
+  }else{
+    showMessage('먼저 반, 번호, 이름을 입력하고 들어가주세요!','warn');
+    state.screen='entry'; render();
+  }
+};
 
 // ---- 새로고침해도 지금 보던 화면(게시판/교사 페이지 등)이 유지되도록 세션에 저장 ----
 function saveSession(){
