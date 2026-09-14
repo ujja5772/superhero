@@ -376,9 +376,14 @@ async function renderBoard(){
     <div class="section-tag pink">${cls} 게시판</div>
     <h1 class="hero-title" style="font-size:24px;">우리 반 히어로들 &#128171;</h1>
     <div class="board-grid" id="postsWrap"><p class="empty-note">불러오는 중...</p></div>
-    <button class="navbtn" style="margin-top:16px;width:100%;" id="toHomeBtn2">처음으로</button>
+    <button class="big-btn coral" style="margin-top:16px;" id="remakeBtn">&#128260; 다시 만들기</button>
+    <button class="navbtn" style="margin-top:10px;width:100%;" id="toHomeBtn2">처음으로</button>
   </div>`;
   document.getElementById('toHomeBtn2').onclick=()=>{ resetToEntry(); };
+  document.getElementById('remakeBtn').onclick=()=>{
+    state.heroName=''; state.canList=['','','']; state.cantList=['','','']; state.chosenCard=null; state.activeFieldRef=null; state.freeFieldKind=undefined;
+    state.screen='create'; render();
+  };
   const keys = await storeList(`hero_post_${sanitize(cls)}_`);
   const wrap = document.getElementById('postsWrap');
   const allPosts=[];
@@ -572,4 +577,36 @@ async function renderTeacherDash(){
 }
 
 document.getElementById('teacherNavBtn').onclick=()=>{ state.screen='teacherLogin'; render(); };
-render();
+
+// ---- 새로고침해도 지금 보던 화면(게시판/교사 페이지 등)이 유지되도록 세션에 저장 ----
+function saveSession(){
+  try{
+    const snapshot = {
+      screen: state.screen, student: state.student, heroName: state.heroName,
+      canList: state.canList, cantList: state.cantList, chosenCard: state.chosenCard,
+      boardClass: state.boardClass, teacher: state.teacher, teacherClass: state.teacherClass,
+    };
+    sessionStorage.setItem('hero_session', JSON.stringify(snapshot));
+  }catch(e){}
+}
+function loadSession(){
+  try{
+    const raw = sessionStorage.getItem('hero_session');
+    return raw ? JSON.parse(raw) : null;
+  }catch(e){ return null; }
+}
+const _origRender = render;
+render = function(){
+  saveSession();
+  return _origRender();
+};
+
+(function boot(){
+  const saved = loadSession();
+  if(saved && saved.screen){
+    Object.assign(state, saved);
+    if(state.screen==='reveal') state.screen = state.boardClass ? 'board' : 'entry'; // 카드 공개 애니메이션은 새로고침 후엔 다시 재생할 수 없어서 게시판으로 안내
+    if(state.screen==='teacherDash' && !state.teacher) state.screen='entry'; // 로그인 정보 없이 남은 경우 방지
+  }
+  render();
+})();
