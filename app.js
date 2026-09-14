@@ -717,11 +717,38 @@ async function renderTeacherDash(){
     <div class="class-tabs" id="clsTabs"></div>
     <div class="board-grid" id="teacherPostsWrap"><p class="empty-note">불러오는 중...</p></div>
     <button class="navbtn" style="margin-top:16px;width:100%;" id="teacherLogout">로그아웃</button>
+    <div style="margin-top:24px;border:2px dashed var(--coral);border-radius:14px;padding:14px;">
+      <p style="font-size:12px;color:#D6482F;font-weight:800;margin:0 0 8px;">&#9888;&#65039; 위험 구역: 아래 버튼을 누르면 이 계정의 모든 반, 모든 학생 게시물, 학생 비밀번호 기록, 선생님 계정 자체가 전부 삭제되고 되돌릴 수 없어요.</p>
+      <button class="iconbtn" id="wipeAllBtn" style="background:#FFE1E1;width:100%;padding:10px;">&#128465;&#65039; 이 계정의 모든 기록 삭제</button>
+    </div>
   </div>`;
   const tabs = document.getElementById('clsTabs');
   tabs.innerHTML = classes.map(c=>`<button class="class-tab ${c===cls?'active':''}" data-c="${c}">${escapeHtml(c)}</button>`).join('');
   tabs.querySelectorAll('.class-tab').forEach(btn=>{ btn.onclick=()=>{ state.teacherClass=btn.dataset.c; renderTeacherDash(); }; });
   document.getElementById('teacherLogout').onclick=()=>{ resetToEntry(); };
+  const wipeBtn = document.getElementById('wipeAllBtn');
+  wipeBtn.onclick = async ()=>{
+    if(wipeBtn.dataset.confirm==='1'){
+      wipeBtn.disabled = true;
+      wipeBtn.innerHTML = '삭제하는 중...';
+      const teacherCode = state.teacherCode;
+      const postKeys = await storeList('hero_post_');
+      for(const k of postKeys){
+        const v = await storeGet(k);
+        if(v && v.teacherCode===teacherCode) await storeDelete(k);
+      }
+      for(const c of classes){ await storeDelete(usedKey(teacherCode, c)); }
+      const studentKeys = await storeList(`hero_student_${sanitize(teacherCode)}_`);
+      for(const k of studentKeys){ await storeDelete(k); }
+      await storeDelete(teacherKey(teacherCode));
+      showMessage('이 계정의 모든 기록을 삭제했어요.','ok');
+      resetToEntry();
+    }else{
+      wipeBtn.dataset.confirm='1';
+      wipeBtn.innerHTML = '&#9888;&#65039; 정말요? 되돌릴 수 없어요! 한번 더 누르면 전부 삭제돼요';
+      setTimeout(()=>{ if(wipeBtn){ wipeBtn.dataset.confirm='0'; wipeBtn.innerHTML='&#128465;&#65039; 이 계정의 모든 기록 삭제'; } }, 5000);
+    }
+  };
   const keys = await storeList('hero_post_');
   const wrap = document.getElementById('teacherPostsWrap');
   const posts=[];
