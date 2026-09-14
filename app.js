@@ -293,8 +293,6 @@ function checkFreeSlot(text){
   if(!t) return '3번째 칸을 채워주세요!';
   if(containsKorean(t)) return '한글 대신 영어로 써보세요!';
   if(!/[a-zA-Z]/.test(t)) return '영어로 써보세요!';
-  const unknown = findUnknownWords(t);
-  if(unknown.length>0) return `"${unknown.join(', ')}" 철자가 맞는지 다시 확인해보세요!`;
   return null;
 }
 
