@@ -7,13 +7,18 @@ const WORDS = [
   {en:'kick', ko:'차다'},{en:'catch', ko:'잡다'},
 ];
 const PHRASES = [{"en": "jump", "ko": "점프하다"}, {"en": "run", "ko": "달리다"}, {"en": "climb", "ko": "오르다"}, {"en": "fly", "ko": "날다"}, {"en": "swim", "ko": "수영하다"}, {"en": "skate", "ko": "스케이트를 타다"}, {"en": "ski", "ko": "스키를 타다"}, {"en": "slide", "ko": "미끄러지다"}, {"en": "eat", "ko": "먹다"}, {"en": "dance", "ko": "춤추다"}, {"en": "kick", "ko": "차다"}, {"en": "catch", "ko": "잡다"}, {"en": "turn invisible", "ko": "투명인간이 되다"}, {"en": "stop time", "ko": "시간을 멈추다"}, {"en": "read minds", "ko": "마음을 읽다"}, {"en": "teleport", "ko": "순간이동하다"}, {"en": "shoot laser eyes", "ko": "레이저 눈을 쏘다"}, {"en": "breathe fire", "ko": "불을 뿜다"}, {"en": "control the weather", "ko": "날씨를 조종하다"}, {"en": "have super strength", "ko": "초인적인 힘을 가지다"}, {"en": "lift a car", "ko": "자동차를 들다"}, {"en": "run super fast", "ko": "엄청 빠르게 달리다"}, {"en": "fly to the moon", "ko": "달까지 날아가다"}, {"en": "make a shield", "ko": "방패를 만들다"}, {"en": "shoot energy blasts", "ko": "에너지를 쏘다"}, {"en": "freeze things", "ko": "얼려버리다"}, {"en": "talk to animals", "ko": "동물과 이야기하다"}, {"en": "become giant", "ko": "거인이 되다"}, {"en": "become tiny", "ko": "아주 작아지다"}, {"en": "see through walls", "ko": "벽을 투시하다"}, {"en": "heal people", "ko": "사람들을 치료하다"}, {"en": "control plants", "ko": "식물을 조종하다"}, {"en": "make electricity", "ko": "전기를 만들다"}, {"en": "walk on water", "ko": "물 위를 걷다"}, {"en": "breathe underwater", "ko": "물속에서 숨을 쉬다"}, {"en": "turn into an animal", "ko": "동물로 변신하다"}, {"en": "see the future", "ko": "미래를 보다"}, {"en": "control minds", "ko": "마음을 조종하다"}, {"en": "control fire", "ko": "불을 조종하다"}, {"en": "control water", "ko": "물을 조종하다"}, {"en": "fly through space", "ko": "우주를 날다"}, {"en": "hear far away", "ko": "아주 멀리서도 듣다"}, {"en": "move things with my mind", "ko": "마음으로 물건을 움직이다"}, {"en": "fly through walls", "ko": "벽을 통과해서 날아가다"}, {"en": "run at super speed", "ko": "초고속으로 달리다"}, {"en": "shapeshift", "ko": "모습을 바꾸다"}, {"en": "turn to stone", "ko": "돌로 변하다"}, {"en": "grow wings", "ko": "날개가 자라다"}, {"en": "disappear", "ko": "사라지다"}, {"en": "multiply myself", "ko": "나를 여러 명으로 만들다"}, {"en": "control the wind", "ko": "바람을 조종하다"}, {"en": "control gravity", "ko": "중력을 조종하다"}, {"en": "create a portal", "ko": "포탈을 만들다"}, {"en": "summon animals", "ko": "동물을 소환하다"}, {"en": "glow in the dark", "ko": "어둠 속에서 빛나다"}, {"en": "throw fireballs", "ko": "불덩이를 던지다"}, {"en": "shoot ice", "ko": "얼음을 쏘다"}, {"en": "control ice", "ko": "얼음을 조종하다"}, {"en": "control sound", "ko": "소리를 조종하다"}, {"en": "have x-ray vision", "ko": "투시 능력을 가지다"}, {"en": "hear super well", "ko": "아주 잘 듣다"}, {"en": "smell super well", "ko": "냄새를 아주 잘 맡다"}, {"en": "see in the dark", "ko": "어둠 속에서도 보다"}, {"en": "control magnets", "ko": "자석을 조종하다"}, {"en": "read thoughts", "ko": "텔레파시로 생각을 읽다"}, {"en": "control robots", "ko": "로봇을 조종하다"}, {"en": "copy other powers", "ko": "다른 능력을 따라하다"}, {"en": "transform into a dragon", "ko": "용으로 변신하다"}, {"en": "ride lightning", "ko": "번개를 타다"}, {"en": "control lava", "ko": "용암을 조종하다"}, {"en": "phase through walls", "ko": "벽을 통과하다"}, {"en": "shrink myself", "ko": "몸을 작게 만들다"}, {"en": "grow giant size", "ko": "몸을 거대하게 만들다"}, {"en": "duplicate myself", "ko": "나를 복제하다"}, {"en": "control luck", "ko": "운을 조종하다"}, {"en": "astral project", "ko": "유체이탈하다"}, {"en": "jump super high", "ko": "아주 높이 점프하다"}, {"en": "bounce super high", "ko": "아주 높이 튀어오르다"}, {"en": "absorb other powers", "ko": "다른 힘을 흡수하다"}, {"en": "control emotions", "ko": "감정을 조종하다"}, {"en": "scream super loud", "ko": "아주 크게 소리치다"}, {"en": "camouflage myself", "ko": "몸을 숨기다"}, {"en": "keep perfect balance", "ko": "균형을 아주 잘 잡다"}, {"en": "use echolocation", "ko": "소리로 위치를 찾다"}, {"en": "heal myself fast", "ko": "스스로 빠르게 치료하다"}, {"en": "control darkness", "ko": "어둠을 조종하다"}, {"en": "control light", "ko": "빛을 조종하다"}, {"en": "talk to fish", "ko": "물고기와 이야기하다"}, {"en": "control dreams", "ko": "꿈을 조종하다"}, {"en": "summon fire", "ko": "불을 소환하다"}, {"en": "freeze time", "ko": "시간을 얼리다"}, {"en": "control bugs", "ko": "벌레를 조종하다"}, {"en": "walk through fire", "ko": "불 속을 걸어가다"}, {"en": "never get tired", "ko": "절대 지치지 않다"}, {"en": "have super balance", "ko": "아주 잘 균형을 잡다"}, {"en": "breathe fire and ice", "ko": "불과 얼음을 뿜다"}, {"en": "control the moon", "ko": "달을 조종하다"}, {"en": "control the stars", "ko": "별을 조종하다"}, {"en": "turn into water", "ko": "물로 변하다"}, {"en": "turn into shadow", "ko": "그림자로 변하다"}, {"en": "create clones", "ko": "분신을 만들다"}, {"en": "open portals in time", "ko": "시간 이동 포탈을 열다"}];
-const CLASSES = ['1반','2반','3반','4반'];
-const TEACHER_PW = 'hero2026';
+
+
+// ---- 선생님 계정: 자가 가입, Supabase에 계정별로 저장 ----
+function teacherKey(code){ return `hero_teacher_${sanitize(code)}`; }
+async function getTeacherAccount(code){ return await storeGet(teacherKey(code)); }
+async function saveTeacherAccount(account){ return await storeSet(teacherKey(account.code), account); }
 
 let state = {
-  screen:'entry', student:{cls:'',num:'',name:''}, heroName:'',
+  screen:'entry', student:{cls:'',num:'',name:'',teacherCode:''}, heroName:'',
   canList:['','',''], cantList:['','',''], chosenCard:null,
   boardClass:null, teacher:false, teacherClass:null,
+  teacherCode:null, teacherAccount:null,
   activeFieldRef:null,
 };
 
@@ -62,16 +67,52 @@ async function storeDelete(key){
     return true;
   }catch(e){ console.error(e); return null; }
 }
-function postKey(cls,num,name){ return `hero_post_${sanitize(cls)}_${sanitize(num)}_${sanitize(name)}`; }
-function studentKey(cls,num,name){ return `hero_student_${sanitize(cls)}_${sanitize(num)}_${sanitize(name)}`; }
-async function getStudentAccount(cls,num,name){ return await storeGet(studentKey(cls,num,name)); }
-async function saveStudentPassword(cls,num,name,pw){ return await storeSet(studentKey(cls,num,name), {password:pw}); }
-async function resetStudentPassword(cls,num,name){ return await storeDelete(studentKey(cls,num,name)); }
-function usedKey(cls){ return `hero_used_${sanitize(cls)}`; }
+function postKey(teacherCode,cls,num,name){ return `hero_post_${sanitize(teacherCode)}_${sanitize(cls)}_${sanitize(num)}_${sanitize(name)}`; }
+function studentKey(teacherCode,cls,num,name){ return `hero_student_${sanitize(teacherCode)}_${sanitize(cls)}_${sanitize(num)}_${sanitize(name)}`; }
+async function getStudentAccount(teacherCode,cls,num,name){ return await storeGet(studentKey(teacherCode,cls,num,name)); }
+async function saveStudentPassword(teacherCode,cls,num,name,pw){ return await storeSet(studentKey(teacherCode,cls,num,name), {password:pw}); }
+async function resetStudentPassword(teacherCode,cls,num,name){ return await storeDelete(studentKey(teacherCode,cls,num,name)); }
+function usedKey(teacherCode,cls){ return `hero_used_${sanitize(teacherCode)}_${sanitize(cls)}`; }
 function escapeHtml(s){ return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 function greetingFor(name){
   let h=0; for(const ch of (name||'x')) h += ch.charCodeAt(0);
   return h%2===0 ? 'Hello' : 'Hi';
+}
+
+// ---- 기존(선생님 구분 없이 저장됐던) 게시물/사용카드/비밀번호를 새로 가입한 선생님 소속으로 옮겨줌 ----
+async function migrateLegacyData(teacherCode, classes){
+  try{
+    const postKeys = await storeList('hero_post_');
+    for(const k of postKeys){
+      const v = await storeGet(k);
+      if(v && !v.teacherCode && classes.includes(v.cls)){
+        v.teacherCode = teacherCode;
+        const newKey = postKey(teacherCode, v.cls, v.num, v.name);
+        await storeSet(newKey, v);
+        if(newKey!==k) await storeDelete(k);
+      }
+    }
+    for(const cls of classes){
+      const legacyUsed = await storeGet(`hero_used_${sanitize(cls)}`);
+      if(legacyUsed){
+        await storeSet(usedKey(teacherCode, cls), legacyUsed);
+      }
+    }
+    const studentKeys = await storeList('hero_student_');
+    for(const k of studentKeys){
+      // 예전 형식: hero_student_{cls}_{num}_{name} (언더바 4개 이하) — 새 형식은 teacherCode가 추가로 들어가 5개 이상
+      const parts = k.split('_');
+      if(parts.length===4){
+        const legacyCls = parts[1];
+        if(classes.includes(legacyCls)){
+          const v = await storeGet(k);
+          if(v){
+            await storeSet(`hero_student_${sanitize(teacherCode)}_${k.slice('hero_student_'.length)}`, v);
+          }
+        }
+      }
+    }
+  }catch(e){ console.error('migrateLegacyData failed', e); }
 }
 
 function pickCard(canSentences, cantSentences, usedIds){
@@ -107,10 +148,30 @@ function render(){
   if(state.screen==='reveal') return renderReveal();
   if(state.screen==='board') return renderBoard();
   if(state.screen==='teacherLogin') return renderTeacherLogin();
+  if(state.screen==='teacherSignup') return renderTeacherSignup();
   if(state.screen==='teacherDash') return renderTeacherDash();
 }
 
-function renderEntry(){
+async function getUrlTeacherAccount(){
+  const params = new URLSearchParams(window.location.search);
+  const code = params.get('t') || params.get('teacher');
+  if(!code) return null;
+  return await getTeacherAccount(code);
+}
+
+async function renderEntry(){
+  app.innerHTML = `<div class="card-panel" style="max-width:640px;margin:0 auto;"><p class="empty-note">불러오는 중...</p></div>`;
+  const account = await getUrlTeacherAccount();
+  if(!account){
+    app.innerHTML = `
+    <div class="card-panel" style="max-width:640px;margin:0 auto;text-align:center;">
+      <div class="section-tag pink">안내</div>
+      <h1 class="hero-title" style="font-size:24px;">선생님이 알려주신 링크로 들어와주세요!</h1>
+      <p class="hero-sub">이 페이지는 우리 반 선생님의 전용 링크로만 이용할 수 있어요. 선생님께 링크를 다시 받아보세요.</p>
+    </div>`;
+    return;
+  }
+  const classes = (account.classes && account.classes.length) ? account.classes : ['1반'];
   app.innerHTML = `
   <div class="card-panel" style="max-width:640px;margin:0 auto;">
     <div class="section-tag">시작하기</div>
@@ -118,7 +179,7 @@ function renderEntry(){
     <p class="hero-sub">반, 번호, 이름을 입력하고 들어가요!</p>
     <div class="row2">
       <div><label class="field-label">반</label>
-        <select id="in_cls"><option value="">선택</option>${CLASSES.map(c=>`<option value="${c}">${c}</option>`).join('')}</select>
+        <select id="in_cls"><option value="">선택</option>${classes.map(c=>`<option value="${escapeHtml(c)}">${escapeHtml(c)}</option>`).join('')}</select>
       </div>
       <div><label class="field-label">번호</label><input type="text" id="in_num" inputmode="numeric" placeholder="예: 7"></div>
     </div>
@@ -129,7 +190,7 @@ function renderEntry(){
     <p style="font-size:12px;color:#888;font-weight:700;margin-top:4px;">&#128161; 처음 들어올 때 정한 비밀번호가 앞으로 내 비밀번호가 돼요. 잊어버리면 선생님께 초기화를 요청하세요!</p>
     <button class="big-btn" id="startBtn">들어가기 &#10132;</button>
   </div>
-  <p class="footer-note">나만의 히어로 만들기</p>`;
+  <p class="footer-note">${escapeHtml(account.school||'')}'s Class</p>`;
   document.getElementById('startBtn').onclick=async ()=>{
     const cls=document.getElementById('in_cls').value, num=document.getElementById('in_num').value.trim(), name=document.getElementById('in_name').value.trim();
     const pw=document.getElementById('in_pw').value.trim();
@@ -137,15 +198,16 @@ function renderEntry(){
     if(!/^\d{4}$/.test(pw)){ showMessage('비밀번호는 숫자 4자리로 입력해주세요!','warn'); return; }
     const startBtn = document.getElementById('startBtn');
     startBtn.disabled = true;
-    const account = await getStudentAccount(cls,num,name);
-    if(!account){
-      await saveStudentPassword(cls,num,name,pw);
-    }else if(account.password !== pw){
+    const teacherCode = account.code;
+    const existing = await getStudentAccount(teacherCode,cls,num,name);
+    if(!existing){
+      await saveStudentPassword(teacherCode,cls,num,name,pw);
+    }else if(existing.password !== pw){
       showMessage('비밀번호가 틀렸어요. 다시 확인해보세요!','warn');
       startBtn.disabled = false;
       return;
     }
-    state.student={cls,num,name};
+    state.student={cls,num,name,teacherCode};
     state.heroName=''; state.canList=['','','']; state.cantList=['','','']; state.chosenCard=null; state.activeFieldRef=null; state.freeFieldKind=undefined;
     state.screen='create'; render();
   };
@@ -343,16 +405,17 @@ async function onSubmit(){
   const canFilled = state.canList.map(s=>s.trim());
   const cantFilled = state.cantList.map(s=>s.trim());
   const cls = state.student.cls;
-  let used = await storeGet(usedKey(cls)); if(!used) used=[];
+  const teacherCode = state.student.teacherCode;
+  let used = await storeGet(usedKey(teacherCode,cls)); if(!used) used=[];
   const {chosen,newUsed} = pickCard(state.canList, state.cantList, used);
   state.chosenCard = chosen;
-  await storeSet(usedKey(cls), newUsed);
+  await storeSet(usedKey(teacherCode,cls), newUsed);
   const post = {
-    cls:state.student.cls, num:state.student.num, name:state.student.name,
+    cls:state.student.cls, num:state.student.num, name:state.student.name, teacherCode,
     heroName:state.heroName, canList:canFilled, cantList:cantFilled,
     cardId:chosen.id, hearts:[], feedback:'', approved:false, ts:Date.now(),
   };
-  await storeSet(postKey(state.student.cls,state.student.num,state.student.name), post);
+  await storeSet(postKey(teacherCode,state.student.cls,state.student.num,state.student.name), post);
   state.screen='reveal'; render();
 }
 
@@ -383,7 +446,7 @@ function renderReveal(){
 }
 
 function resetToEntry(){
-  state = {screen:'entry', student:{cls:'',num:'',name:''}, heroName:'', canList:['','',''], cantList:['','',''], chosenCard:null, boardClass:null, teacher:false, teacherClass:null, activeFieldRef:null};
+  state = {screen:'entry', student:{cls:'',num:'',name:'',teacherCode:''}, heroName:'', canList:['','',''], cantList:['','',''], chosenCard:null, boardClass:null, teacher:false, teacherClass:null, teacherCode:null, teacherAccount:null, activeFieldRef:null};
   render();
 }
 
@@ -405,7 +468,7 @@ async function renderBoard(){
   const keys = await storeList('hero_post_');
   const wrap = document.getElementById('postsWrap');
   const allPosts=[];
-  for(const k of keys){ const r=await storeGet(k); if(r && r.cls===cls) allPosts.push({key:k,...r}); }
+  for(const k of keys){ const r=await storeGet(k); if(r && r.cls===cls && r.teacherCode===state.student.teacherCode) allPosts.push({key:k,...r}); }
   const posts = allPosts.filter(p=>p.approved);
   if(posts.length===0){ wrap.innerHTML = `<p class="empty-note">아직 승인된 게시물이 없어요. 선생님이 확인 중이에요!</p>`; return; }
   posts.sort((a,b)=>b.ts-a.ts);
@@ -497,7 +560,7 @@ function attachPostHandlers(wrap, posts, teacherMode){
         const newNum = el.querySelector('.editNumInput').value.trim();
         const newName = el.querySelector('.editNameInput').value.trim();
         if(!newNum || !newName){ showMessage('번호와 이름을 모두 입력해주세요.','warn'); return; }
-        const newKey = postKey(post.cls, newNum, newName);
+        const newKey = postKey(post.teacherCode, post.cls, newNum, newName);
         post.num = newNum; post.name = newName;
         await storeSet(newKey, post);
         if(newKey !== key){ await storeDelete(key); }
@@ -508,7 +571,7 @@ function attachPostHandlers(wrap, posts, teacherMode){
     const resetPwBtn = el.querySelector('.resetPwBtn');
     if(resetPwBtn){
       resetPwBtn.onclick = async ()=>{
-        await resetStudentPassword(post.cls, post.num, post.name);
+        await resetStudentPassword(post.teacherCode, post.cls, post.num, post.name);
         showMessage(`${post.name} 학생의 비밀번호를 초기화했어요! 다음에 입장할 때 새로 정한 비밀번호가 등록돼요.`, 'ok');
       };
     }
@@ -565,38 +628,105 @@ function renderTeacherLogin(){
   <div class="card-panel" style="max-width:520px;margin:0 auto;">
     <div class="section-tag grape">선생님 전용</div>
     <h1 class="hero-title" style="font-size:24px;">선생님 로그인</h1>
+    <label class="field-label">선생님 코드</label>
+    <input type="text" id="codeInput" placeholder="가입할 때 정한 코드">
     <label class="field-label">비밀번호</label>
     <input type="password" id="pwInput" placeholder="비밀번호 입력">
     <button class="big-btn grape" id="pwSubmit">로그인</button>
+    <button class="navbtn" style="margin-top:10px;width:100%;" id="goSignup">아직 계정이 없으신가요? 새로 만들기</button>
     <button class="navbtn" style="margin-top:10px;width:100%;" id="pwCancel">취소</button>
   </div>`;
   document.getElementById('pwCancel').onclick=()=>{ state.screen='entry'; render(); };
-  document.getElementById('pwSubmit').onclick=()=>{
+  document.getElementById('goSignup').onclick=()=>{ state.screen='teacherSignup'; render(); };
+  document.getElementById('pwSubmit').onclick=async ()=>{
+    const code = document.getElementById('codeInput').value.trim().toLowerCase();
     const v = document.getElementById('pwInput').value;
-    if(v===TEACHER_PW){ state.teacher=true; state.teacherClass=CLASSES[0]; state.screen='teacherDash'; render(); }
-    else showMessage('비밀번호가 올바르지 않아요.','warn');
+    if(!code||!v){ showMessage('코드와 비밀번호를 모두 입력해주세요.','warn'); return; }
+    const account = await getTeacherAccount(code);
+    if(account && account.password===v){
+      state.teacher=true; state.teacherAccount=account; state.teacherCode=account.code;
+      state.teacherClass = (account.classes&&account.classes[0]) || '1반';
+      state.screen='teacherDash'; render();
+    } else showMessage('코드 또는 비밀번호가 올바르지 않아요.','warn');
+  };
+}
+
+function renderTeacherSignup(){
+  app.innerHTML = `
+  <div class="card-panel" style="max-width:560px;margin:0 auto;">
+    <div class="section-tag grape">선생님 계정 만들기</div>
+    <h1 class="hero-title" style="font-size:24px;">우리 학교, 우리 반을 개설해요</h1>
+    <label class="field-label">학교명</label>
+    <input type="text" id="su_school" placeholder="예: 행복초등학교">
+    <label class="field-label">코드 (학생용 링크에 쓰여요, 영문/숫자)</label>
+    <input type="text" id="su_code" placeholder="예: haengbok3 (학교이름-학년)">
+    <label class="field-label">비밀번호 (선생님 로그인용)</label>
+    <input type="password" id="su_pw" placeholder="로그인할 때 쓸 비밀번호">
+    <label class="field-label">반 목록 (쉼표로 구분)</label>
+    <input type="text" id="su_classes" placeholder="예: 1반,2반,3반,4반" value="1반,2반,3반,4반">
+    <button class="big-btn grape" id="su_submit">계정 만들기</button>
+    <button class="navbtn" style="margin-top:10px;width:100%;" id="su_cancel">취소</button>
+  </div>`;
+  document.getElementById('su_cancel').onclick=()=>{ state.screen='teacherLogin'; render(); };
+  document.getElementById('su_submit').onclick=async ()=>{
+    const school = document.getElementById('su_school').value.trim();
+    const code = document.getElementById('su_code').value.trim().toLowerCase().replace(/[^a-z0-9]/g,'');
+    const pw = document.getElementById('su_pw').value;
+    const classesRaw = document.getElementById('su_classes').value.trim();
+    if(!school||!code||!pw||!classesRaw){ showMessage('모든 항목을 입력해주세요.','warn'); return; }
+    const existing = await getTeacherAccount(code);
+    if(existing){ showMessage('이미 사용 중인 코드예요. 다른 코드를 써주세요.','warn'); return; }
+    const classes = classesRaw.split(',').map(s=>s.trim()).filter(Boolean);
+    if(classes.length===0){ showMessage('반을 하나 이상 입력해주세요.','warn'); return; }
+    const submitBtn = document.getElementById('su_submit');
+    submitBtn.disabled = true;
+    submitBtn.textContent = '만드는 중...';
+    // 이관은 "지금 가입하는 사람이 이 앱의 첫 번째 선생님"일 때만 시도함 (다른 학교와 반 이름이 겹쳐도 안전하도록)
+    const otherTeachers = await storeList('hero_teacher_');
+    const isFirstTeacher = otherTeachers.length===0;
+    const account = { code, school, password:pw, classes, createdAt:Date.now() };
+    const ok = await saveTeacherAccount(account);
+    if(!ok){ showMessage('저장에 실패했어요. 다시 시도해주세요.','warn'); submitBtn.disabled=false; submitBtn.textContent='계정 만들기'; return; }
+    if(isFirstTeacher){ await migrateLegacyData(code, classes); }
+    const link = `${window.location.origin}${window.location.pathname}?t=${code}`;
+    app.innerHTML = `
+    <div class="card-panel" style="max-width:560px;margin:0 auto;text-align:center;">
+      <div class="section-tag">가입 완료!</div>
+      <h1 class="hero-title" style="font-size:22px;">${escapeHtml(school)}, 환영해요!</h1>
+      <p class="hero-sub">아래 링크를 학생들에게 나눠주세요. 이 링크로 들어온 학생만 선생님 반 소속으로 저장돼요. 이전에 같은 반 이름으로 만들어진 게시물이 있었다면 자동으로 옮겨졌어요.</p>
+      <div style="background:#F1FBFF;border:3px solid var(--ink);border-radius:14px;padding:12px;font-weight:800;word-break:break-all;margin-bottom:16px;">${link}</div>
+      <button class="big-btn grape" id="goDash">바로 관리 페이지로 이동</button>
+    </div>`;
+    document.getElementById('goDash').onclick=()=>{
+      state.teacher=true; state.teacherAccount=account; state.teacherCode=account.code;
+      state.teacherClass = account.classes[0]; state.screen='teacherDash'; render();
+    };
   };
 }
 
 async function renderTeacherDash(){
   const cls = state.teacherClass;
+  const account = state.teacherAccount;
+  const classes = (account && account.classes && account.classes.length) ? account.classes : ['1반'];
+  const link = `${window.location.origin}${window.location.pathname}?t=${state.teacherCode}`;
   app.innerHTML = `
   <div class="card-panel">
     <div class="section-tag grape">선생님 관리 페이지</div>
-    <h1 class="hero-title" style="font-size:24px;">전체 반 게시물 관리</h1>
+    <h1 class="hero-title" style="font-size:24px;">${escapeHtml(account?account.school:'')} 관리 페이지</h1>
+    <p style="font-size:12px;color:#888;font-weight:700;margin:-8px 0 14px;">학생용 링크: <span style="word-break:break-all;">${link}</span></p>
     <div class="class-tabs" id="clsTabs"></div>
     <div class="board-grid" id="teacherPostsWrap"><p class="empty-note">불러오는 중...</p></div>
     <button class="navbtn" style="margin-top:16px;width:100%;" id="teacherLogout">로그아웃</button>
   </div>`;
   const tabs = document.getElementById('clsTabs');
-  tabs.innerHTML = CLASSES.map(c=>`<button class="class-tab ${c===cls?'active':''}" data-c="${c}">${c}</button>`).join('');
+  tabs.innerHTML = classes.map(c=>`<button class="class-tab ${c===cls?'active':''}" data-c="${c}">${escapeHtml(c)}</button>`).join('');
   tabs.querySelectorAll('.class-tab').forEach(btn=>{ btn.onclick=()=>{ state.teacherClass=btn.dataset.c; renderTeacherDash(); }; });
   document.getElementById('teacherLogout').onclick=()=>{ resetToEntry(); };
   const keys = await storeList('hero_post_');
   const wrap = document.getElementById('teacherPostsWrap');
   const posts=[];
-  for(const k of keys){ const r=await storeGet(k); if(r && r.cls===cls) posts.push({key:k,...r}); }
-  if(posts.length===0){ wrap.innerHTML = `<p class="empty-note">${cls}에는 아직 게시물이 없어요.</p>`; return; }
+  for(const k of keys){ const r=await storeGet(k); if(r && r.cls===cls && r.teacherCode===state.teacherCode) posts.push({key:k,...r}); }
+  if(posts.length===0){ wrap.innerHTML = `<p class="empty-note">${escapeHtml(cls)}에는 아직 게시물이 없어요.</p>`; return; }
   posts.sort((a,b)=>b.ts-a.ts);
   wrap.innerHTML = posts.map(p=>renderPostHTML(p,true)).join('');
   attachPostHandlers(wrap,posts,true);
@@ -620,6 +750,7 @@ function saveSession(){
       screen: state.screen, student: state.student, heroName: state.heroName,
       canList: state.canList, cantList: state.cantList, chosenCard: state.chosenCard,
       boardClass: state.boardClass, teacher: state.teacher, teacherClass: state.teacherClass,
+      teacherCode: state.teacherCode, teacherAccount: state.teacherAccount,
     };
     sessionStorage.setItem('hero_session', JSON.stringify(snapshot));
   }catch(e){}
