@@ -402,21 +402,33 @@ async function onSubmit(){
   if(canErr){ showMessage(canErr,'warn'); return; }
   const cantErr = validateAbilities(state.cantList, "I can't");
   if(cantErr){ showMessage(cantErr,'warn'); return; }
-  const canFilled = state.canList.map(s=>s.trim());
-  const cantFilled = state.cantList.map(s=>s.trim());
+  // 연습 단계: 카드만 뽑아서 보여주고, 아직 아무것도 저장하지 않음 (마음에 들 때만 "게시판에 올리기")
   const cls = state.student.cls;
   const teacherCode = state.student.teacherCode;
   let used = await storeGet(usedKey(teacherCode,cls)); if(!used) used=[];
-  const {chosen,newUsed} = pickCard(state.canList, state.cantList, used);
+  const {chosen} = pickCard(state.canList, state.cantList, used);
   state.chosenCard = chosen;
-  await storeSet(usedKey(teacherCode,cls), newUsed);
+  state.screen='reveal'; render();
+}
+
+async function confirmSubmit(){
+  const cls = state.student.cls;
+  const teacherCode = state.student.teacherCode;
+  let used = await storeGet(usedKey(teacherCode,cls)); if(!used) used=[];
+  if(!used.includes(state.chosenCard.id)) used.push(state.chosenCard.id);
+  await storeSet(usedKey(teacherCode,cls), used);
+  const account = await getTeacherAccount(teacherCode);
+  const autoApprove = !!(account && account.autoApprove);
+  const canFilled = state.canList.map(s=>s.trim());
+  const cantFilled = state.cantList.map(s=>s.trim());
   const post = {
     cls:state.student.cls, num:state.student.num, name:state.student.name, teacherCode,
     heroName:state.heroName, canList:canFilled, cantList:cantFilled,
-    cardId:chosen.id, hearts:[], feedback:'', approved:false, ts:Date.now(),
+    cardId:state.chosenCard.id, hearts:[], feedback:'', approved:autoApprove, ts:Date.now(),
   };
   await storeSet(postKey(teacherCode,state.student.cls,state.student.num,state.student.name), post);
-  state.screen='reveal'; render();
+  state.boardClass = cls;
+  state.screen='board'; render();
 }
 
 function renderReveal(){
@@ -435,11 +447,20 @@ function renderReveal(){
       const p=document.querySelector('.card-panel');
       const wrap=document.createElement('div');
       wrap.innerHTML = `
-        <div class="pending-note">&#128075; 선생님이 히어로 이름을 확인하고 승인하면 우리 반 게시판에 공개돼요!</div>
-        <button class="big-btn teal" id="toBoardBtn">우리 반 게시판 보러가기 &#128172;</button>
+        <div class="pending-note">&#128077; 이 카드가 마음에 들면 게시판에 올리고, 아니면 새 문장으로 다시 연습해보세요! 게시판에 올리기 전까지는 저장되지 않아요.</div>
+        <button class="big-btn teal" id="confirmBtn">&#9989; 이걸로 게시판에 올리기</button>
+        <button class="big-btn coral" id="retryBtn">&#128260; 다른 문장으로 다시 연습하기</button>
         <button class="navbtn" style="margin-top:10px;width:100%;" id="toHomeBtn">처음으로</button>`;
       p.appendChild(wrap);
-      document.getElementById('toBoardBtn').onclick=()=>{ state.boardClass=state.student.cls; state.screen='board'; render(); };
+      document.getElementById('confirmBtn').onclick=async ()=>{
+        const btn = document.getElementById('confirmBtn');
+        btn.disabled = true; btn.textContent = '올리는 중...';
+        await confirmSubmit();
+      };
+      document.getElementById('retryBtn').onclick=()=>{
+        state.heroName=''; state.canList=['','','']; state.cantList=['','','']; state.chosenCard=null; state.activeFieldRef=null; state.freeFieldKind=undefined;
+        state.screen='create'; render();
+      };
       document.getElementById('toHomeBtn').onclick=()=>{ resetToEntry(); };
     }, 400);
   };
@@ -714,6 +735,10 @@ async function renderTeacherDash(){
     <div class="section-tag grape">선생님 관리 페이지</div>
     <h1 class="hero-title" style="font-size:24px;">${escapeHtml(account?account.school:'')} 관리 페이지</h1>
     <p style="font-size:12px;color:#888;font-weight:700;margin:-8px 0 14px;">학생용 링크: <span style="word-break:break-all;">${link}</span></p>
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap;">
+      <button class="iconbtn" id="autoApproveToggle" style="${account&&account.autoApprove?'background:var(--teal);color:#fff;':''}">${account&&account.autoApprove?'&#9989; 자동 승인: 켜짐 (누르면 끄기)':'&#9203; 자동 승인: 꺼짐 (누르면 켜기)'}</button>
+      <button class="iconbtn" id="approveAllBtn" style="background:var(--sun);">&#9989; 이 반 전체 승인하기</button>
+    </div>
     <div class="class-tabs" id="clsTabs"></div>
     <div class="board-grid" id="teacherPostsWrap"><p class="empty-note">불러오는 중...</p></div>
     <button class="navbtn" style="margin-top:16px;width:100%;" id="teacherLogout">로그아웃</button>
@@ -726,6 +751,26 @@ async function renderTeacherDash(){
   tabs.innerHTML = classes.map(c=>`<button class="class-tab ${c===cls?'active':''}" data-c="${c}">${escapeHtml(c)}</button>`).join('');
   tabs.querySelectorAll('.class-tab').forEach(btn=>{ btn.onclick=()=>{ state.teacherClass=btn.dataset.c; renderTeacherDash(); }; });
   document.getElementById('teacherLogout').onclick=()=>{ resetToEntry(); };
+  document.getElementById('autoApproveToggle').onclick = async ()=>{
+    account.autoApprove = !account.autoApprove;
+    await saveTeacherAccount(account);
+    state.teacherAccount = account;
+    renderTeacherDash();
+  };
+  document.getElementById('approveAllBtn').onclick = async ()=>{
+    const btn = document.getElementById('approveAllBtn');
+    btn.disabled = true; btn.textContent = '승인하는 중...';
+    const keys2 = await storeList('hero_post_');
+    for(const k of keys2){
+      const v = await storeGet(k);
+      if(v && v.cls===cls && v.teacherCode===state.teacherCode && !v.approved){
+        v.approved = true;
+        await storeSet(k, v);
+      }
+    }
+    showMessage(`${cls} 게시물을 모두 승인했어요!`,'ok');
+    renderTeacherDash();
+  };
   const wipeBtn = document.getElementById('wipeAllBtn');
   wipeBtn.onclick = async ()=>{
     if(wipeBtn.dataset.confirm==='1'){
