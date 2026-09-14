@@ -479,10 +479,10 @@ async function renderBoard(){
     state.heroName=''; state.canList=['','','']; state.cantList=['','','']; state.chosenCard=null; state.activeFieldRef=null; state.freeFieldKind=undefined;
     state.screen='create'; render();
   };
-  const keys = await storeList(`hero_post_${sanitize(cls)}_`);
+  const keys = await storeList('hero_post_');
   const wrap = document.getElementById('postsWrap');
   const allPosts=[];
-  for(const k of keys){ const r=await storeGet(k); if(r) allPosts.push({key:k,...r}); }
+  for(const k of keys){ const r=await storeGet(k); if(r && r.cls===cls) allPosts.push({key:k,...r}); }
   const posts = allPosts.filter(p=>p.approved);
   if(posts.length===0){ wrap.innerHTML = `<p class="empty-note">아직 승인된 게시물이 없어요. 선생님이 확인 중이에요!</p>`; return; }
   posts.sort((a,b)=>b.ts-a.ts);
@@ -661,11 +661,11 @@ async function renderTeacherDash(){
   tabs.innerHTML = CLASSES.map(c=>`<button class="class-tab ${c===cls?'active':''}" data-c="${c}">${c}</button>`).join('');
   tabs.querySelectorAll('.class-tab').forEach(btn=>{ btn.onclick=()=>{ state.teacherClass=btn.dataset.c; renderTeacherDash(); }; });
   document.getElementById('teacherLogout').onclick=()=>{ resetToEntry(); };
-  const keys = await storeList(`hero_post_${sanitize(cls)}_`);
+  const keys = await storeList('hero_post_');
   const wrap = document.getElementById('teacherPostsWrap');
-  if(!keys||keys.length===0){ wrap.innerHTML = `<p class="empty-note">${cls}에는 아직 게시물이 없어요.</p>`; return; }
   const posts=[];
-  for(const k of keys){ const r=await storeGet(k); if(r) posts.push({key:k,...r}); }
+  for(const k of keys){ const r=await storeGet(k); if(r && r.cls===cls) posts.push({key:k,...r}); }
+  if(posts.length===0){ wrap.innerHTML = `<p class="empty-note">${cls}에는 아직 게시물이 없어요.</p>`; return; }
   posts.sort((a,b)=>b.ts-a.ts);
   wrap.innerHTML = posts.map(p=>renderPostHTML(p,true)).join('');
   attachPostHandlers(wrap,posts,true);
