@@ -395,11 +395,12 @@ function renderPostHTML(p, teacherMode){
   const myKey = `${state.student.num}_${state.student.name}`;
   const liked = (p.hearts||[]).includes(myKey);
   const greet = greetingFor(p.heroName);
+  const isOwner = !teacherMode && state.student && p.cls===state.student.cls && String(p.num)===String(state.student.num) && p.name===state.student.name;
   return `
   <div class="post-card" data-key="${p.key}">
     ${teacherMode ? `<span class="status-pill ${p.approved?'approved':'pending'}">${p.approved?'&#9989; 승인됨':'&#8987; 승인 대기'}</span>` : ''}
     <img src="${card.data}">
-    <div class="post-meta">${p.cls} ${p.num}번 ${escapeHtml(p.name)}</div>
+    <div class="post-meta">${p.cls} ${p.num}번 ${escapeHtml(p.name)}${isOwner?' (나)':''}</div>
     ${teacherMode ? `
       <div style="display:flex;gap:6px;margin:4px 0 8px;">
         <input type="text" class="editNumInput" value="${escapeHtml(p.num)}" style="width:54px;padding:6px 8px;font-size:12px;" placeholder="번호">
@@ -420,7 +421,8 @@ function renderPostHTML(p, teacherMode){
       <div style="margin-top:8px;display:flex;gap:6px;">
         <input type="text" class="fbInput" placeholder="피드백 남기기" value="${escapeHtml(p.feedback||'')}" style="flex:1;padding:8px 10px;font-size:13px;">
         <button class="iconbtn fbSaveBtn">저장</button>
-      </div>
+      </div>` : ''}
+    ${(teacherMode || isOwner) ? `
       <div style="margin-top:8px;display:flex;gap:6px;">
         <button class="iconbtn editContentBtn">&#9999;&#65039; 내용 수정</button>
         <button class="iconbtn deleteBtn" style="background:#FFE1E1;">&#128465;&#65039; 삭제</button>
@@ -433,6 +435,7 @@ function renderPostHTML(p, teacherMode){
         <label class="field-label" style="font-size:12px;">I can't...</label>
         ${[0,1,2].map(i=>`<input type="text" class="editCantInput" data-i="${i}" value="${escapeHtml(p.cantList[i]||'')}" style="margin-bottom:6px;font-size:14px;padding:8px 10px;">`).join('')}
         <button class="iconbtn editContentSaveBtn" style="background:var(--sun);width:100%;margin-top:4px;">이 내용으로 저장</button>
+        ${isOwner ? `<p style="font-size:11px;color:#888;font-weight:700;margin-top:6px;">수정하면 선생님 승인이 다시 필요해요.</p>` : ''}
       </div>` : ''}
   </div>`;
 }
@@ -503,9 +506,10 @@ function attachPostHandlers(wrap, posts, teacherMode){
         post.heroName = newHeroName;
         post.canList = newCan.filter(s=>s!=='');
         post.cantList = newCant.filter(s=>s!=='');
+        if(!teacherMode) post.approved = false;
         await storeSet(key, post);
-        showMessage('게시물 내용을 수정했어요!','ok');
-        renderTeacherDash();
+        showMessage(teacherMode ? '게시물 내용을 수정했어요!' : '수정했어요! 선생님 승인 후 다시 게시판에 보여요.', 'ok');
+        if(teacherMode) renderTeacherDash(); else renderBoard();
       };
     }
     const deleteBtn = el.querySelector('.deleteBtn');
@@ -514,7 +518,7 @@ function attachPostHandlers(wrap, posts, teacherMode){
         if(deleteBtn.dataset.confirm==='1'){
           await storeDelete(key);
           showMessage('게시물을 삭제했어요.','ok');
-          renderTeacherDash();
+          if(teacherMode) renderTeacherDash(); else renderBoard();
         }else{
           deleteBtn.dataset.confirm='1';
           deleteBtn.innerHTML = '&#9888;&#65039; 정말요? 한번 더 누르면 삭제돼요';
