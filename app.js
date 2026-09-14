@@ -734,7 +734,14 @@ async function renderTeacherDash(){
   <div class="card-panel">
     <div class="section-tag grape">선생님 관리 페이지</div>
     <h1 class="hero-title" style="font-size:24px;">${escapeHtml(account?account.school:'')} 관리 페이지</h1>
-    <p style="font-size:12px;color:#888;font-weight:700;margin:-8px 0 14px;">학생용 링크: <span style="word-break:break-all;">${link}</span></p>
+    <p style="font-size:12px;color:#888;font-weight:700;margin:-8px 0 10px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+      학생용 링크: <span style="word-break:break-all;">${link}</span>
+      <button class="iconbtn" id="copyLinkBtn" style="font-size:12px;padding:4px 10px;">&#128203; 복사</button>
+    </p>
+    <div style="display:flex;align-items:center;gap:10px;margin:0 0 14px;">
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=${encodeURIComponent(link)}" alt="학생용 QR 코드" width="120" height="120" style="border:3px solid var(--ink);border-radius:12px;background:#fff;">
+      <p style="font-size:12px;color:#888;font-weight:700;margin:0;">&#128241; 화면에 띄워두면 학생들이<br>카메라로 스캔해서 바로 들어올 수 있어요.</p>
+    </div>
     <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap;">
       <button class="iconbtn" id="autoApproveToggle" style="${account&&account.autoApprove?'background:var(--teal);color:#fff;':''}">${account&&account.autoApprove?'&#9989; 자동 승인: 켜짐 (누르면 끄기)':'&#9203; 자동 승인: 꺼짐 (누르면 켜기)'}</button>
       <button class="iconbtn" id="approveAllBtn" style="background:var(--sun);">&#9989; 이 반 전체 승인하기</button>
@@ -751,6 +758,21 @@ async function renderTeacherDash(){
   tabs.innerHTML = classes.map(c=>`<button class="class-tab ${c===cls?'active':''}" data-c="${c}">${escapeHtml(c)}</button>`).join('');
   tabs.querySelectorAll('.class-tab').forEach(btn=>{ btn.onclick=()=>{ state.teacherClass=btn.dataset.c; renderTeacherDash(); }; });
   document.getElementById('teacherLogout').onclick=()=>{ resetToEntry(); };
+  document.getElementById('copyLinkBtn').onclick = async ()=>{
+    try{
+      await navigator.clipboard.writeText(link);
+      showMessage('링크를 복사했어요!','ok');
+    }catch(e){
+      try{
+        const ta = document.createElement('textarea');
+        ta.value = link; document.body.appendChild(ta); ta.select();
+        document.execCommand('copy'); document.body.removeChild(ta);
+        showMessage('링크를 복사했어요!','ok');
+      }catch(e2){
+        showMessage('복사에 실패했어요. 링크를 직접 선택해서 복사해주세요.','warn');
+      }
+    }
+  };
   document.getElementById('autoApproveToggle').onclick = async ()=>{
     account.autoApprove = !account.autoApprove;
     await saveTeacherAccount(account);
@@ -804,7 +826,6 @@ async function renderTeacherDash(){
   attachPostHandlers(wrap,posts,true);
 }
 
-document.getElementById('teacherNavBtn').onclick=()=>{ state.screen='teacherLogin'; render(); };
 document.getElementById('boardNavBtn').onclick=()=>{
   if(state.student && state.student.cls){
     state.boardClass = state.student.cls;
@@ -833,9 +854,21 @@ function loadSession(){
     return raw ? JSON.parse(raw) : null;
   }catch(e){ return null; }
 }
+function updateTopBar(){
+  const btn = document.getElementById('teacherNavBtn');
+  if(!btn) return;
+  if(state.teacher){
+    btn.textContent = '선생님 로그아웃';
+    btn.onclick = ()=>{ resetToEntry(); };
+  }else{
+    btn.textContent = '선생님 로그인';
+    btn.onclick = ()=>{ state.screen='teacherLogin'; render(); };
+  }
+}
 const _origRender = render;
 render = function(){
   saveSession();
+  updateTopBar();
   return _origRender();
 };
 
@@ -846,5 +879,6 @@ render = function(){
     if(state.screen==='reveal') state.screen = state.boardClass ? 'board' : 'entry'; // 카드 공개 애니메이션은 새로고침 후엔 다시 재생할 수 없어서 게시판으로 안내
     if(state.screen==='teacherDash' && !state.teacher) state.screen='entry'; // 로그인 정보 없이 남은 경우 방지
   }
+  updateTopBar();
   render();
 })();
