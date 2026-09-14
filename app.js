@@ -6,16 +6,13 @@ const WORDS = [
   {en:'ski', ko:'스키를 타다'},{en:'slide', ko:'미끄러지다'},{en:'eat', ko:'먹다'},{en:'dance', ko:'춤추다'},
 ];
 const PHRASES = [{"en": "jump", "ko": "점프하다"}, {"en": "run", "ko": "달리다"}, {"en": "climb", "ko": "오르다"}, {"en": "fly", "ko": "날다"}, {"en": "swim", "ko": "수영하다"}, {"en": "skate", "ko": "스케이트를 타다"}, {"en": "ski", "ko": "스키를 타다"}, {"en": "slide", "ko": "미끄러지다"}, {"en": "eat", "ko": "먹다"}, {"en": "dance", "ko": "춤추다"}, {"en": "turn invisible", "ko": "투명인간이 되다"}, {"en": "stop time", "ko": "시간을 멈추다"}, {"en": "read minds", "ko": "마음을 읽다"}, {"en": "teleport", "ko": "순간이동하다"}, {"en": "shoot laser eyes", "ko": "레이저 눈을 쏘다"}, {"en": "breathe fire", "ko": "불을 뿜다"}, {"en": "control the weather", "ko": "날씨를 조종하다"}, {"en": "have super strength", "ko": "초인적인 힘을 가지다"}, {"en": "lift a car", "ko": "자동차를 들다"}, {"en": "run super fast", "ko": "엄청 빠르게 달리다"}, {"en": "fly to the moon", "ko": "달까지 날아가다"}, {"en": "make a shield", "ko": "방패를 만들다"}, {"en": "shoot energy blasts", "ko": "에너지를 쏘다"}, {"en": "freeze things", "ko": "얼려버리다"}, {"en": "talk to animals", "ko": "동물과 이야기하다"}, {"en": "become giant", "ko": "거인이 되다"}, {"en": "become tiny", "ko": "아주 작아지다"}, {"en": "see through walls", "ko": "벽을 투시하다"}, {"en": "heal people", "ko": "사람들을 치료하다"}, {"en": "control plants", "ko": "식물을 조종하다"}, {"en": "make electricity", "ko": "전기를 만들다"}, {"en": "walk on water", "ko": "물 위를 걷다"}, {"en": "breathe underwater", "ko": "물속에서 숨을 쉬다"}, {"en": "turn into an animal", "ko": "동물로 변신하다"}, {"en": "see the future", "ko": "미래를 보다"}, {"en": "control minds", "ko": "마음을 조종하다"}, {"en": "control fire", "ko": "불을 조종하다"}, {"en": "control water", "ko": "물을 조종하다"}, {"en": "fly through space", "ko": "우주를 날다"}, {"en": "hear far away", "ko": "아주 멀리서도 듣다"}, {"en": "move things with my mind", "ko": "마음으로 물건을 움직이다"}];
-// ---- 선생님 계정: 이제 선생님이 직접 가입해서 본인 학교/반을 만들어요 (저장소에 보관) ----
-function teacherKey(code){ return `hero_teacher_${sanitize(code)}`; }
-async function getTeacherAccount(code){ return await storeGet(teacherKey(code)); }
-async function saveTeacherAccount(account){ return await storeSet(teacherKey(account.code), account); }
+const CLASSES = ['1반','2반','3반','4반'];
+const TEACHER_PW = 'hero2026';
 
 let state = {
-  screen:'entry', student:{cls:'',num:'',name:'',teacherCode:''}, heroName:'',
+  screen:'entry', student:{cls:'',num:'',name:''}, heroName:'',
   canList:['','',''], cantList:['','',''], chosenCard:null,
-  boardClass:null, teacher:false, teacherClass:null, teacherCode:null, teacherName:'',
-  currentTeacherAccount:null, teacherAccount:null,
+  boardClass:null, teacher:false, teacherClass:null,
   activeFieldRef:null,
 };
 
@@ -64,8 +61,8 @@ async function storeDelete(key){
     return true;
   }catch(e){ console.error(e); return null; }
 }
-function postKey(teacherCode,cls,num,name){ return `hero_post_${sanitize(teacherCode)}_${sanitize(cls)}_${sanitize(num)}_${sanitize(name)}`; }
-function usedKey(teacherCode,cls){ return `hero_used_${sanitize(teacherCode)}_${sanitize(cls)}`; }
+function postKey(cls,num,name){ return `hero_post_${sanitize(cls)}_${sanitize(num)}_${sanitize(name)}`; }
+function usedKey(cls){ return `hero_used_${sanitize(cls)}`; }
 function escapeHtml(s){ return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 function greetingFor(name){
   let h=0; for(const ch of (name||'x')) h += ch.charCodeAt(0);
@@ -105,35 +102,10 @@ function render(){
   if(state.screen==='reveal') return renderReveal();
   if(state.screen==='board') return renderBoard();
   if(state.screen==='teacherLogin') return renderTeacherLogin();
-  if(state.screen==='teacherSignup') return renderTeacherSignup();
   if(state.screen==='teacherDash') return renderTeacherDash();
 }
 
-async function renderEntry(){
-  app.innerHTML = `<div class="card-panel" style="max-width:640px;margin:0 auto;"><p class="empty-note">불러오는 중...</p></div>`;
-  const params = new URLSearchParams(window.location.search);
-  const code = params.get('t') || params.get('teacher');
-  if(!code){
-    app.innerHTML = `
-    <div class="card-panel" style="max-width:640px;margin:0 auto;text-align:center;">
-      <div class="section-tag pink">안내</div>
-      <h1 class="hero-title" style="font-size:24px;">선생님이 알려주신 링크로 들어와주세요!</h1>
-      <p class="hero-sub">이 페이지는 우리 반 선생님의 전용 링크로만 이용할 수 있어요. 선생님께 링크를 다시 받아보세요.</p>
-    </div>`;
-    return;
-  }
-  const account = await getTeacherAccount(code);
-  if(!account){
-    app.innerHTML = `
-    <div class="card-panel" style="max-width:640px;margin:0 auto;text-align:center;">
-      <div class="section-tag pink">안내</div>
-      <h1 class="hero-title" style="font-size:24px;">링크가 올바르지 않아요</h1>
-      <p class="hero-sub">선생님께 정확한 링크를 다시 받아보세요.</p>
-    </div>`;
-    return;
-  }
-  state.currentTeacherAccount = account;
-  const classes = account.classes && account.classes.length ? account.classes : ['1반','2반','3반','4반'];
+function renderEntry(){
   app.innerHTML = `
   <div class="card-panel" style="max-width:640px;margin:0 auto;">
     <div class="section-tag">시작하기</div>
@@ -141,7 +113,7 @@ async function renderEntry(){
     <p class="hero-sub">반, 번호, 이름을 입력하고 히어로 만들기를 시작해요!</p>
     <div class="row2">
       <div><label class="field-label">반</label>
-        <select id="in_cls"><option value="">선택</option>${classes.map(c=>`<option value="${escapeHtml(c)}">${escapeHtml(c)}</option>`).join('')}</select>
+        <select id="in_cls"><option value="">선택</option>${CLASSES.map(c=>`<option value="${c}">${c}</option>`).join('')}</select>
       </div>
       <div><label class="field-label">번호</label><input type="text" id="in_num" inputmode="numeric" placeholder="예: 7"></div>
     </div>
@@ -149,12 +121,11 @@ async function renderEntry(){
     <input type="text" id="in_name" placeholder="이름을 입력하세요">
     <button class="big-btn" id="startBtn">다음으로 &#10132;</button>
   </div>
-  <p class="footer-note">${escapeHtml(account.school||'')} ${escapeHtml(account.name)}'s Class</p>`;
+  <p class="footer-note">나만의 히어로 만들기</p>`;
   document.getElementById('startBtn').onclick=()=>{
-    const teacherCode=account.code;
     const cls=document.getElementById('in_cls').value, num=document.getElementById('in_num').value.trim(), name=document.getElementById('in_name').value.trim();
     if(!cls||!num||!name){ showMessage('반, 번호, 이름을 모두 입력해주세요!','warn'); return; }
-    state.student={cls,num,name,teacherCode};
+    state.student={cls,num,name};
     state.heroName=''; state.canList=['','','']; state.cantList=['','','']; state.chosenCard=null; state.activeFieldRef=null; state.freeFieldKind=undefined;
     state.screen='create'; render();
   };
@@ -354,17 +325,16 @@ async function onSubmit(){
   const canFilled = state.canList.map(s=>s.trim());
   const cantFilled = state.cantList.map(s=>s.trim());
   const cls = state.student.cls;
-  const teacherCode = state.student.teacherCode;
-  let used = await storeGet(usedKey(teacherCode,cls)); if(!used) used=[];
+  let used = await storeGet(usedKey(cls)); if(!used) used=[];
   const {chosen,newUsed} = pickCard(state.canList, state.cantList, used);
   state.chosenCard = chosen;
-  await storeSet(usedKey(teacherCode,cls), newUsed);
+  await storeSet(usedKey(cls), newUsed);
   const post = {
-    cls:state.student.cls, num:state.student.num, name:state.student.name, teacherCode,
+    cls:state.student.cls, num:state.student.num, name:state.student.name,
     heroName:state.heroName, canList:canFilled, cantList:cantFilled,
     cardId:chosen.id, hearts:[], feedback:'', approved:false, ts:Date.now(),
   };
-  await storeSet(postKey(teacherCode,state.student.cls,state.student.num,state.student.name), post);
+  await storeSet(postKey(state.student.cls,state.student.num,state.student.name), post);
   state.screen='reveal'; render();
 }
 
@@ -395,7 +365,7 @@ function renderReveal(){
 }
 
 function resetToEntry(){
-  state = {screen:'entry', student:{cls:'',num:'',name:'',teacherCode:''}, heroName:'', canList:['','',''], cantList:['','',''], chosenCard:null, boardClass:null, teacher:false, teacherClass:null, teacherCode:null, teacherName:'', currentTeacherAccount:null, teacherAccount:null, activeFieldRef:null};
+  state = {screen:'entry', student:{cls:'',num:'',name:''}, heroName:'', canList:['','',''], cantList:['','',''], chosenCard:null, boardClass:null, teacher:false, teacherClass:null, activeFieldRef:null};
   render();
 }
 
@@ -409,7 +379,7 @@ async function renderBoard(){
     <button class="navbtn" style="margin-top:16px;width:100%;" id="toHomeBtn2">처음으로</button>
   </div>`;
   document.getElementById('toHomeBtn2').onclick=()=>{ resetToEntry(); };
-  const keys = await storeList(`hero_post_${sanitize(state.student.teacherCode)}_${sanitize(cls)}_`);
+  const keys = await storeList(`hero_post_${sanitize(cls)}_`);
   const wrap = document.getElementById('postsWrap');
   const allPosts=[];
   for(const k of keys){ const r=await storeGet(k); if(r) allPosts.push({key:k,...r}); }
@@ -560,99 +530,36 @@ function renderTeacherLogin(){
   <div class="card-panel" style="max-width:520px;margin:0 auto;">
     <div class="section-tag grape">선생님 전용</div>
     <h1 class="hero-title" style="font-size:24px;">선생님 로그인</h1>
-    <label class="field-label">선생님 코드</label>
-    <input type="text" id="codeInput" placeholder="가입할 때 정한 코드">
     <label class="field-label">비밀번호</label>
     <input type="password" id="pwInput" placeholder="비밀번호 입력">
     <button class="big-btn grape" id="pwSubmit">로그인</button>
-    <button class="navbtn" style="margin-top:10px;width:100%;" id="goSignup">아직 계정이 없으신가요? 새로 만들기</button>
     <button class="navbtn" style="margin-top:10px;width:100%;" id="pwCancel">취소</button>
   </div>`;
   document.getElementById('pwCancel').onclick=()=>{ state.screen='entry'; render(); };
-  document.getElementById('goSignup').onclick=()=>{ state.screen='teacherSignup'; render(); };
-  document.getElementById('pwSubmit').onclick=async ()=>{
-    const code = document.getElementById('codeInput').value.trim().toLowerCase();
+  document.getElementById('pwSubmit').onclick=()=>{
     const v = document.getElementById('pwInput').value;
-    if(!code||!v){ showMessage('코드와 비밀번호를 모두 입력해주세요.','warn'); return; }
-    const account = await getTeacherAccount(code);
-    if(account && account.password===v){
-      state.teacher=true; state.teacherAccount=account; state.teacherCode=account.code; state.teacherName=account.name;
-      state.teacherClass = (account.classes&&account.classes[0]) || '1반';
-      state.screen='teacherDash'; render();
-    } else showMessage('코드 또는 비밀번호가 올바르지 않아요.','warn');
-  };
-}
-
-function renderTeacherSignup(){
-  app.innerHTML = `
-  <div class="card-panel" style="max-width:560px;margin:0 auto;">
-    <div class="section-tag grape">선생님 계정 만들기</div>
-    <h1 class="hero-title" style="font-size:24px;">우리 학교, 우리 반을 개설해요</h1>
-    <label class="field-label">학교명</label>
-    <input type="text" id="su_school" placeholder="예: 상봉초등학교">
-    <label class="field-label">선생님 성함</label>
-    <input type="text" id="su_name" placeholder="예: Tr. Olivia / 김OO 선생님">
-    <label class="field-label">코드 (학생용 링크에 쓰여요, 영문/숫자)</label>
-    <input type="text" id="su_code" placeholder="예: olivia, kim2 (다른 선생님과 겹치지 않게)">
-    <label class="field-label">비밀번호</label>
-    <input type="password" id="su_pw" placeholder="로그인할 때 쓸 비밀번호">
-    <label class="field-label">반 목록 (쉼표로 구분)</label>
-    <input type="text" id="su_classes" placeholder="예: 1반,2반,3반,4반" value="1반,2반,3반,4반">
-    <button class="big-btn grape" id="su_submit">계정 만들기</button>
-    <button class="navbtn" style="margin-top:10px;width:100%;" id="su_cancel">취소</button>
-  </div>`;
-  document.getElementById('su_cancel').onclick=()=>{ state.screen='teacherLogin'; render(); };
-  document.getElementById('su_submit').onclick=async ()=>{
-    const school = document.getElementById('su_school').value.trim();
-    const name = document.getElementById('su_name').value.trim();
-    const code = document.getElementById('su_code').value.trim().toLowerCase().replace(/[^a-z0-9]/g,'');
-    const pw = document.getElementById('su_pw').value;
-    const classesRaw = document.getElementById('su_classes').value.trim();
-    if(!school||!name||!code||!pw||!classesRaw){ showMessage('모든 항목을 입력해주세요.','warn'); return; }
-    const existing = await getTeacherAccount(code);
-    if(existing){ showMessage('이미 사용 중인 코드예요. 다른 코드를 써주세요.','warn'); return; }
-    const classes = classesRaw.split(',').map(s=>s.trim()).filter(Boolean);
-    if(classes.length===0){ showMessage('반을 하나 이상 입력해주세요.','warn'); return; }
-    const account = { code, school, name, password:pw, classes, createdAt:Date.now() };
-    const ok = await saveTeacherAccount(account);
-    if(!ok){ showMessage('저장에 실패했어요. 다시 시도해주세요.','warn'); return; }
-    const link = `${window.location.origin}${window.location.pathname}?t=${code}`;
-    app.innerHTML = `
-    <div class="card-panel" style="max-width:560px;margin:0 auto;text-align:center;">
-      <div class="section-tag">가입 완료!</div>
-      <h1 class="hero-title" style="font-size:22px;">${escapeHtml(school)} ${escapeHtml(name)} 선생님, 환영해요!</h1>
-      <p class="hero-sub">아래 링크를 학생들에게 나눠주세요. 이 링크로 들어온 학생만 선생님 반 소속으로 저장돼요.</p>
-      <div style="background:#F1FBFF;border:3px solid var(--ink);border-radius:14px;padding:12px;font-weight:800;word-break:break-all;margin-bottom:16px;">${link}</div>
-      <button class="big-btn grape" id="goDash">바로 관리 페이지로 이동</button>
-    </div>`;
-    document.getElementById('goDash').onclick=()=>{
-      state.teacher=true; state.teacherAccount=account; state.teacherCode=account.code; state.teacherName=account.name;
-      state.teacherClass = account.classes[0]; state.screen='teacherDash'; render();
-    };
+    if(v===TEACHER_PW){ state.teacher=true; state.teacherClass=CLASSES[0]; state.screen='teacherDash'; render(); }
+    else showMessage('비밀번호가 올바르지 않아요.','warn');
   };
 }
 
 async function renderTeacherDash(){
   const cls = state.teacherClass;
-  const account = state.teacherAccount;
-  const classes = (account && account.classes && account.classes.length) ? account.classes : ['1반'];
-  const link = `${window.location.origin}${window.location.pathname}?t=${state.teacherCode}`;
   app.innerHTML = `
   <div class="card-panel">
     <div class="section-tag grape">선생님 관리 페이지</div>
-    <h1 class="hero-title" style="font-size:24px;">${escapeHtml(account?account.school:'')} ${escapeHtml(state.teacherName)} 선생님</h1>
-    <p style="font-size:12px;color:#888;font-weight:700;margin:-8px 0 14px;">학생용 링크: <span style="word-break:break-all;">${link}</span></p>
+    <h1 class="hero-title" style="font-size:24px;">전체 반 게시물 관리</h1>
     <div class="class-tabs" id="clsTabs"></div>
     <div class="board-grid" id="teacherPostsWrap"><p class="empty-note">불러오는 중...</p></div>
     <button class="navbtn" style="margin-top:16px;width:100%;" id="teacherLogout">로그아웃</button>
   </div>`;
   const tabs = document.getElementById('clsTabs');
-  tabs.innerHTML = classes.map(c=>`<button class="class-tab ${c===cls?'active':''}" data-c="${c}">${escapeHtml(c)}</button>`).join('');
+  tabs.innerHTML = CLASSES.map(c=>`<button class="class-tab ${c===cls?'active':''}" data-c="${c}">${c}</button>`).join('');
   tabs.querySelectorAll('.class-tab').forEach(btn=>{ btn.onclick=()=>{ state.teacherClass=btn.dataset.c; renderTeacherDash(); }; });
   document.getElementById('teacherLogout').onclick=()=>{ resetToEntry(); };
-  const keys = await storeList(`hero_post_${sanitize(state.teacherCode)}_${sanitize(cls)}_`);
+  const keys = await storeList(`hero_post_${sanitize(cls)}_`);
   const wrap = document.getElementById('teacherPostsWrap');
-  if(!keys||keys.length===0){ wrap.innerHTML = `<p class="empty-note">${escapeHtml(cls)}에는 아직 게시물이 없어요.</p>`; return; }
+  if(!keys||keys.length===0){ wrap.innerHTML = `<p class="empty-note">${cls}에는 아직 게시물이 없어요.</p>`; return; }
   const posts=[];
   for(const k of keys){ const r=await storeGet(k); if(r) posts.push({key:k,...r}); }
   posts.sort((a,b)=>b.ts-a.ts);
